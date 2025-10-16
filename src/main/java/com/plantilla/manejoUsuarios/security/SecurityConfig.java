@@ -29,13 +29,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/users/all",
-                                 "/users/id/*",
-                                 "/users/username/*",
-                                 "/users/delete/*",
-                                 "/users/update/*")
-                .authenticated()
-                .requestMatchers("/users/create").permitAll()
+                .requestMatchers("/users/**").authenticated()
                 .anyRequest().permitAll()
             )
             .addFilterBefore(new RoleValidationFilter(secretKey, "ADMIN"), UsernamePasswordAuthenticationFilter.class);
